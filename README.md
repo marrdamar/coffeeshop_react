@@ -3,13 +3,6 @@
 
   <h2 align="center">Coffee Shop</h2>
 
-  <p align="center">
-    <a href="https://coffeeshop-react.vercel.app/">View Demo</a>
-    ·
-    <a href="mailto:4fifbuchori@gmail.com">Report Bug</a>
-    ·
-    <a href="mailto:4fifbuchori@gmail.com">Request Feature</a>
-  </p>
 </div>
 
 ## Coffee Shop
@@ -21,7 +14,7 @@ Coffee Shop is a web-based application for order coffee, non coffee, and foods p
 This application is built using React.js, Redux, axios, TailwindCSS.
 
 <div align="center">
-  <img src="https://skillicons.dev/icons?i=react,javascript,html,css,redux,tailwind,vercel" />
+  [![My Skills](https://skillicons.dev/icons?i=js,nodejs,postgres,react,redux,tailwind,css,vercel)](https://skillicons.dev)
 </div>
 
 ## Features
@@ -51,10 +44,10 @@ If you would like to contribute to this project, please send a pull request to t
 ## Documentation
 
 <div align="center">
-  <img width="600" src="./src/assets/screencapture/home-page.png" alt="display-documentation">
-  <img width="600" src="./src/assets/screencapture/login-page.png" alt="display-documentation">
-  <img width="600" src="./src/assets/screencapture/products-page.png" alt="display-documentation">
-  <img width="600" src="./src/assets/screencapture/cart-page.png" alt="display-documentation">
-  <img width="600" src="./src/assets/screencapture/history-page.png" alt="display-documentation">
-  <img width="600" src="./src/assets/screencapture/profile-page.png" alt="display-documentation">
+  <img width="600" src="" alt="display-documentation">
+  <img width="600" src="" alt="display-documentation">
+  <img width="600" src="" alt="display-documentation">
+  <img width="600" src="" alt="display-documentation">
+  <img width="600" src="" alt="display-documentation">
+  <img width="600" src="" alt="display-documentation">
 </div>
