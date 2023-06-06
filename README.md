@@ -13,9 +13,8 @@ Coffee Shop is a web-based application for order coffee, non coffee, and foods p
 
 This application is built using React.js, Redux, axios, TailwindCSS.
 
-<div align="center">
-  [![My Skills](https://skillicons.dev/icons?i=js,nodejs,postgres,react,redux,tailwind,css,vercel)](https://skillicons.dev)
-</div>
+
+  [![My Skills](https://skillicons.dev/icons?i=js,nodejs,react,redux,tailwind,css,vercel)](https://skillicons.dev)
 
 ## Features
 
