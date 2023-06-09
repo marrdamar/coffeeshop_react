@@ -12,9 +12,9 @@ export const login = (email, password, controller) => {
   return axios.post(url, body, { signal: controller.signal });
 };
 
-export const register = (email, password, phone, controller) => {
+export const register = (email, password, phone_number, controller) => {
   const url = `${baseUrl}/auth/register`;
-  const body = { email, password, phone };
+  const body = { email, password, phone_number };
   return axios.post(url, body, { signal: controller.signal });
 };
 
@@ -25,7 +25,7 @@ export const forgot = (email, controller) => {
 
 export const setPassbyForgot = (email, otpCode, password, controller) => {
   const url = `${baseUrl}/auth/editpassbyforgot`;
-  const body = { email, code_otp: otpCode, password };
+  const body = { email, otp_code: otpCode, password };
   return axios.patch(url, body, { signal: controller.signal });
 };
 
@@ -44,13 +44,19 @@ export const updateDataUser = (id, file, body, controller) => {
   const token = storeToken.user.token;
   const formData = new FormData();
   if (file !== "") {
-    formData.append("image", file);
+    formData.append("profile_image", file);
   }
   Object.keys(body).forEach((key) => {
     formData.set(key, body[key]);
   });
-  console.log(formData);
-  return axios.patch(url, formData, {
+  // body.append("address", address)
+  // body.append("display_name", display_name)
+  // body.append("first_name", first_name)
+  // body.append("last_name", last_name)
+  // body.append("birth_date", birth_date)
+  // body.append("genders", genders)
+  // body.append("profile_image", profile_image)
+  return axios.patch(url, formData,{
     signal: controller.signal,
     headers: { Authorization: `Bearer ${token}` },
   });
@@ -70,9 +76,11 @@ export const authLogout = (controller) => {
   const url = `${baseUrl}/auth/logout`;
   const storeToken = store.getState();
   const token = storeToken.user.token;
-  return axios.delete(url, {
-    signal: controller.signal,
+  localStorage.clear();
+  console.log(token)
+  return axios.patch(url, token,{
     headers: { Authorization: `Bearer ${token}` },
+    signal: controller.signal,
   });
 };
 
