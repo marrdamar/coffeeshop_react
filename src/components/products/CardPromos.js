@@ -8,7 +8,7 @@ function Promos(props) {
         <img src={props.image} alt="" />
       </div>
       <h2 className="font-bold text-2xl">{props.prodName}</h2>
-      <h2 className="font-bold text-xl">{props.discount}% OFF</h2>
+      <h2 className="font-bold text-xl">{props.discount}</h2>
       <p className="text-sm text-center">
         {props.desc || "Buy 1 Choco Oreo and get 20% off for Beef Spaghetti"}
       </p>

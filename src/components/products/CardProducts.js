@@ -27,7 +27,7 @@ export class CardProducts extends Component {
           {this.props.prodName}
         </h2>
         <h3 className="font-bold text-lg text-secondary font-popins">
-          {/* IDR {this.props.prices.toLocaleString("id-ID")} */}
+          IDR {this.props.prices.toLocaleString("id-ID")}
         </h3>
       </div>
     );
