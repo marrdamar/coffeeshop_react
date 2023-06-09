@@ -36,7 +36,7 @@ const userSlice = createSlice({
         ...prevState,
         // isLogin: true,
         id: action.payload.dataUser.id,
-        image: action.payload.dataUser.profile_picture,
+        image: action.payload.dataUser.profile_image,
         role: action.payload.dataUser.role_id,
         token: action.payload.token,
       };
@@ -46,7 +46,7 @@ const userSlice = createSlice({
         ...prevState,
         data: {
           ...prevState.data,
-          profile_picture: action.payload,
+          profile_image: action.payload,
         },
       };
     },
@@ -66,12 +66,12 @@ const userSlice = createSlice({
         ...prevState,
         data: {
           ...prevState.data,
-          phone: action.payload,
+          phone_number: action.payload,
         },
       };
     },
-    authLogout: () => {
-      return initialState;
+    authLogout: () => { 
+      return initialState
     },
   },
   extraReducers: {
