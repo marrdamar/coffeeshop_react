@@ -10,7 +10,7 @@ function ForgotPassword() {
   const [email, setEmail] = useState("");
   const [timeLeft, setTimeLeft] = useState(0);
   const [form, setForm] = useState({
-    code_otp: "",
+    otp_code: "",
     password: "",
   });
 
@@ -54,7 +54,7 @@ function ForgotPassword() {
     setIsLoading(true);
     event.preventDefault();
     console.log(form);
-    setPassbyForgot(email, form.code_otp, form.password, controller)
+    setPassbyForgot(email, form.otp_code, form.password, controller)
       .then((res) => {
         setIsLoading(false);
         console.log(res);
@@ -62,7 +62,7 @@ function ForgotPassword() {
       })
       .catch((err) => console.log(err));
   };
-
+  console.log(email)
   return (
     <>
       <section className="hero-forgot w-full min-h-screen flex flex-col justify-center items-center">
@@ -125,7 +125,7 @@ function ForgotPassword() {
                 <input
                   type="text"
                   id="otp"
-                  name="code_otp"
+                  name="otp_code"
                   onChange={inputOtpCode}
                   placeholder="Enter your OTP code..."
                   className="input-auth w-full md:h-14 text-base md:text-2xl"

@@ -31,7 +31,8 @@ function History() {
     fetchDataHistory();
   }, [isDelete]);
   // console.log(isDelete);
-  // console.log(dataHistory);
+  console.log(dataHistory);
+  console.log()
   return (
     <>
       <Header />
@@ -50,17 +51,18 @@ function History() {
                 <CardHistory
                   key={idx}
                   prodId={product.product_id}
-                  transactionId={product.history_id}
-                  name={product.prod_name}
+                  transactionId={product.id}
+                  name={product.names}
                   image={product.image}
-                  price={product.price}
+                  price={product.prices}
                   methodDeliv={product.method}
                   orderAt={product.created_at}
+                  status={product.status_id}
                   onDelete={handleDelete}
                   // qty={product.qty}
                   // size={product.size_id}
                 />
-              ))}
+                ))}
               <ModaltoCart
                 msg="Data Deleted..."
                 isOpen={isDelete}

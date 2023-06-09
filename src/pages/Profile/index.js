@@ -16,6 +16,7 @@ function Profile() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const state = useSelector((state) => state.user);
+  const token = useSelector((state) => state.user.token);
 
   const [dataUser, setDataUser] = useState();
   const [isLoading, setIsLoading] = useState(true);
@@ -28,18 +29,22 @@ function Profile() {
       const result = await getUser(id, controller);
       setDataUser(result.data.data);
       setIsLoading(false);
+      console.log(result.data.email)
     } catch (error) {
       console.log(error);
     }
   };
-
+  console.log(controller)
+  console.log(state)
+  console.log(token)
   const handleForm = (event) => {
-    if (event.target.name === "profile_picture") {
+    if (event.target.name === "profile_image") {
       console.log(event.target.files);
       setDataUser((dataUser) => {
         return { ...dataUser, [event.target.name]: event.target.files[0] };
       });
       setProfPict(event.target.files[0]);
+      console.log(setProfPict(event.target.files[0]))
     } else {
       setDataUser((dataUser) => {
         return { ...dataUser, [event.target.name]: event.target.value };
@@ -49,6 +54,7 @@ function Profile() {
       });
     }
   };
+  console.log()
 
   const handleSave = async (event) => {
     event.preventDefault();
@@ -56,7 +62,6 @@ function Profile() {
     setIsLoading(true);
     try {
       const result = await updateDataUser(profPict, form, controller);
-      console.log(result);
       if (result.status === 200) {
         if (form.address) {
           dispatch(userAction.updateAddress(form.address));
@@ -65,13 +70,15 @@ function Profile() {
           dispatch(userAction.updatePhone(form.phone_number));
         }
         if (profPict !== "")
-          dispatch(userAction.updateImage(result.data.data[0].image));
+        dispatch(userAction.updateImage(result.data.data[0].profile_image));
       }
       setIsLoading(false);
+      // console.log(userAction.updateImage(result.data.data[0].image));
     } catch (error) {
       console.log(error);
     }
   };
+
 
   const handleLogout = async () => {
     setIsLoading(true);
@@ -83,6 +90,7 @@ function Profile() {
         dispatch(counterAction.resetCounter());
         setIsLoading(false);
         navigate("/", { replace: true });
+        localStorage.clear();
       }
     } catch (error) {
       console.log(error);
@@ -107,7 +115,8 @@ function Profile() {
   //                             .slice(0, 10) || ""
 
   // console.log(new Date(dataUser.birth_date).toISOString());
-
+  // console.log(fetchDataUser(state.data.id))
+  console.log(dataUser)
   return (
     <>
       <Header />
@@ -126,7 +135,7 @@ function Profile() {
                     <input
                       type="file"
                       id="file-img"
-                      name="profile_picture"
+                      name="profile_image"
                       onChange={handleForm}
                       className="hidden"
                     />
@@ -139,10 +148,10 @@ function Profile() {
                     <img
                       src={
                         profPict === ""
-                          ? dataUser.profile_picture
+                          ? dataUser.profile_image
                           : URL.createObjectURL(profPict)
                       }
-                      alt="profile-picture"
+                      alt="image"
                       className="w-full h-full rounded-full border-2 overflow-hidden"
                     />
                   </span>
@@ -181,14 +190,14 @@ function Profile() {
                     </div>
                     <div className="input flex flex-col">
                       <label
-                        htmlFor="phone"
+                        htmlFor="phone_number"
                         className="font-medium text-xl text-grey"
                       >
                         Mobile Number :
                       </label>
                       <input
                         type="text"
-                        id="phone"
+                        id="phone_number"
                         name="phone_number"
                         value={dataUser.phone_number}
                         onChange={handleForm}
@@ -290,7 +299,7 @@ function Profile() {
                         >
                           DD/MM/YY
                         </label>
-                        {/* <input
+                        <input
                           type="date"
                           id="birthDate"
                           name="birth_date"
@@ -305,7 +314,7 @@ function Profile() {
                           }
                           onChange={handleForm}
                           className="h-14"
-                        /> */}
+                        />
                       </div>
 
                       <div className="flex flex-col gap-2">

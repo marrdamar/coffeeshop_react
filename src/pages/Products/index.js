@@ -234,7 +234,7 @@ export class Products extends Component {
                     id={product.id}
                     image={product.image}
                     prodName={product.names}
-                    // price={product.prices}
+                    prices={product.prices}
                   />
                   // <CardProducts key={product.id} image={`http://localhost:8080${product.image}`} prodName={product.prod_name} price={product.price} />
                 ))

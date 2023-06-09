@@ -32,9 +32,10 @@ function ProductDetails() {
   const fetchData = async (id) => {
     try {
       const result = await getProductsDetails(id, controller);
-      setDataProduct(result.data.data);
+      setDataProduct(result.data.data[0]);
       setIsLoading(false);
       setIsNotFound(false);
+      console.log(result)
     } catch (error) {
       if (error.response.status === 404) {
         setIsNotFound(true);
@@ -43,7 +44,6 @@ function ProductDetails() {
       console.log(error);
     }
   };
-
   useEffect(() => {
     document.title = "Coffee Shop - Product Details";
     fetchData(id);
@@ -83,6 +83,7 @@ function ProductDetails() {
       qty,
       subtotal,
     };
+    console.log(prodName)
     dispatch(counterAction.addtoCart(cart));
     setIsModalCart(true);
   };
@@ -99,16 +100,15 @@ function ProductDetails() {
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
-  console.log(dataProduct.prodName)
   // console.log(selectedSize);
-  // console.log(dataProduct);
+  console.log(dataProduct);
   return (
     <>
       <Header title="products" />
       {isLoading ? (
         <Loader />
-      ) : isNotFound ? (
-        <div className="w-full flex h-auto mt-14 md:mt-28">
+        ) : isNotFound ? (
+          <div className="w-full flex h-auto mt-14 md:mt-28">
           <DataNotFound />
         </div>
       ) : (
@@ -116,9 +116,9 @@ function ProductDetails() {
           <section className="flex justify-center w-full mt-14 md:mt-28 bg-slate-100">
             <div className="w-4/5 flex flex-col max-width">
               <ul className="flex mt-10">
-                <Link to="/products">{dataProduct.category_name}</Link>
+                <Link to="/products">{dataProduct.names}</Link>
                 <li className="font-bold text-secondary ml-1">
-                  &gt; {dataProduct.names}
+                  &gt; {dataProduct.prodName}
                 </li>
               </ul>
               <div className="flex flex-col md:flex-row w-full mb-60 md:mb-44 md:gap-16 xl:gap-20 justify-center">
@@ -131,7 +131,7 @@ function ProductDetails() {
                     />
                   </div>
                   <h1 className="font-black text-4xl md:text-6xl text-center md:mb-5">
-                    {dataProduct.prod_name}
+                    {dataProduct.names}
                   </h1>
                   {/* <p className="font-medium text-2xl md:text-4xl mb-8">
                     IDR {dataProduct.price.toLocaleString("id-ID")}
@@ -143,7 +143,7 @@ function ProductDetails() {
                     Add to Cart
                   </button>
                   <ModaltoCart
-                    msg={dataProduct.prod_name + " Added..."}
+                    msg={dataProduct.prodName + " Added..."}
                     isOpen={isModalCart}
                     onClose={handleCloseCart}
                   />
@@ -272,7 +272,7 @@ function ProductDetails() {
                 </div>
                 <div className="flex flex-col mr-auto">
                   <h5 className="font-bold text-base md:text-2xl">
-                    {dataProduct.prod_name}
+                    {dataProduct.names}
                   </h5>
                   <p className="text-xs md:text-base">
                     x{qty} (

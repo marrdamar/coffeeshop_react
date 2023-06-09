@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { register } from "../../utils/https/auth";
 
 import logoBrand from "../../assets/icon/logo.svg";
@@ -9,12 +9,12 @@ import Loader from "../../components/Loader";
 
 function Login() {
   const controller = useMemo(() => new AbortController(), []);
-
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [form, setForm] = useState({
     email: "",
     password: "",
-    phone: "",
+    phone_number: "",
   });
 
   const onChangeForm = (event) => {
@@ -30,10 +30,11 @@ function Login() {
     setIsLoading(true);
     event.preventDefault();
     console.log(form);
-    register(form.email, form.password, form.phone, controller)
+    register(form.email, form.password, form.phone_number, controller)
       .then((res) => {
         setIsLoading(false);
         console.log(res.data);
+        navigate("/login");
       })
       .catch((err) => console.log(err));
   };
@@ -96,8 +97,8 @@ function Login() {
             <input
               type="text"
               id="phone"
-              name="phone"
-              value={form.phone}
+              name="phone_number"
+              value={form.phone_number}
               onChange={onChangeForm}
               placeholder="Enter your phone number"
               className="input-auth mb-8"
