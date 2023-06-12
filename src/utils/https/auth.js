@@ -33,15 +33,18 @@ export const getUser = (id, controller) => {
   const url = `${baseUrl}/users/${id}`;
   const storeToken = store.getState();
   const token = storeToken.user.token
-  return axios.get(url, { 
+  return axios.get(url, {
     signal: controller.signal,
-  headers: { Authorization: `Bearer ${token}` }, });
+    headers: { Authorization: `Bearer ${token}` },
+  });
 };
 
-export const updateDataUser = (id, file, body, controller) => {
-  const url = `${baseUrl}/users/${id}`;
+export const updateDataUser = (file, body, controller) => {
+  const url = `${baseUrl}/auth/profile`;
   const storeToken = store.getState();
   const token = storeToken.user.token;
+  // const storeuserId = store.getState();
+  // const userId = storeuserId.user.id
   const formData = new FormData();
   if (file !== "") {
     formData.append("profile_image", file);
@@ -49,14 +52,7 @@ export const updateDataUser = (id, file, body, controller) => {
   Object.keys(body).forEach((key) => {
     formData.set(key, body[key]);
   });
-  // body.append("address", address)
-  // body.append("display_name", display_name)
-  // body.append("first_name", first_name)
-  // body.append("last_name", last_name)
-  // body.append("birth_date", birth_date)
-  // body.append("genders", genders)
-  // body.append("profile_image", profile_image)
-  return axios.patch(url, formData,{
+  return axios.patch(url, formData, {
     signal: controller.signal,
     headers: { Authorization: `Bearer ${token}` },
   });
@@ -78,7 +74,7 @@ export const authLogout = (controller) => {
   const token = storeToken.user.token;
   localStorage.clear();
   console.log(token)
-  return axios.patch(url, token,{
+  return axios.patch(url, token, {
     headers: { Authorization: `Bearer ${token}` },
     signal: controller.signal,
   });
