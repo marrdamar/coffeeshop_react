@@ -18,7 +18,7 @@ export function Header(props) {
   const handleToggle = () => {
     setToggleActive(!toggleActive);
   };
-
+  console.log(stateStore)
   return (
     <header className="w-full fixed h-14 md:h-28 flex items-center justify-center shadow-lg bg-white z-50">
       <nav className="flex w-full md:w-4/5 mx-4 md:mx-0 max-width">

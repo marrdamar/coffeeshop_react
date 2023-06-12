@@ -36,6 +36,7 @@ export class Account extends Component {
     this.setState({
       imageProfile: profilePicture,
     });
+    console.log(state)
   }
   
   render() {
