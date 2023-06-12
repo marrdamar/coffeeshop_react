@@ -9,18 +9,19 @@ import { authLogout, getUser, updateDataUser } from "../../utils/https/auth";
 import { userAction } from "../../redux/slices/auth";
 import { counterAction } from "../../redux/slices/counter";
 import { useNavigate } from "react-router-dom";
-import ChangePwd from "../../components/forPages/ChangePwd";
+// import ChangePwd from "../../components/forPages/ChangePwd";
 
 function Profile() {
-  const controller = useMemo(() => new AbortController(), []);
+  const controller = useMemo(() => new AbortController());
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const state = useSelector((state) => state.user);
   const token = useSelector((state) => state.user.token);
+  // const id = useSelector((state) => state.user.id)
 
   const [dataUser, setDataUser] = useState();
   const [isLoading, setIsLoading] = useState(true);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  // const [isModalOpen, setIsModalOpen] = useState(false);
   const [form, setForm] = useState();
   const [profPict, setProfPict] = useState("");
 
@@ -29,13 +30,13 @@ function Profile() {
       const result = await getUser(id, controller);
       setDataUser(result.data.data);
       setIsLoading(false);
-      console.log(result.data.email)
+      // console.log(result.data.email)
+      console.log(result)
     } catch (error) {
       console.log(error);
     }
   };
-  console.log(controller)
-  console.log(state)
+  // console.log(state)
   console.log(token)
   const handleForm = (event) => {
     if (event.target.name === "profile_image") {
@@ -54,14 +55,13 @@ function Profile() {
       });
     }
   };
-  console.log()
 
   const handleSave = async (event) => {
     event.preventDefault();
-    console.log(form);
     setIsLoading(true);
     try {
       const result = await updateDataUser(profPict, form, controller);
+      console.log(result)
       if (result.status === 200) {
         if (form.address) {
           dispatch(userAction.updateAddress(form.address));
@@ -71,6 +71,7 @@ function Profile() {
         }
         if (profPict !== "")
         dispatch(userAction.updateImage(result.data.data[0].profile_image));
+        console.log(result)
       }
       setIsLoading(false);
       // console.log(userAction.updateImage(result.data.data[0].image));
@@ -78,7 +79,7 @@ function Profile() {
       console.log(error);
     }
   };
-
+  
 
   const handleLogout = async () => {
     setIsLoading(true);
@@ -97,12 +98,12 @@ function Profile() {
     }
   };
 
-  const handleEditPwd = () => {
-    setIsModalOpen(true);
-  };
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
+  // const handleEditPwd = () => {
+  //   setIsModalOpen(true);
+  // };
+  // const handleCloseModal = () => {
+  //   setIsModalOpen(false);
+  // };
 
   useEffect(() => {
     document.title = "Coffee Shop - Profile";
@@ -116,7 +117,7 @@ function Profile() {
 
   // console.log(new Date(dataUser.birth_date).toISOString());
   // console.log(fetchDataUser(state.data.id))
-  console.log(dataUser)
+  // console.log(dataUser)
   return (
     <>
       <Header />
@@ -377,18 +378,6 @@ function Profile() {
                     </button>
                   </div>
                   <div className="flex flex-col gap-5">
-                    <button
-                      type="button"
-                      onClick={handleEditPwd}
-                      className="btn h-14 rounded-2xl text-secondary bg-white flex justify-between px-10"
-                    >
-                      Edit Password
-                      <i className="bi bi-caret-right-fill text-secondary"></i>
-                    </button>
-                    <ChangePwd
-                      isOpen={isModalOpen}
-                      onClose={handleCloseModal}
-                    />
                     <button
                       type="button"
                       onClick={handleLogout}
