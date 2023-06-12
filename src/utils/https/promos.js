@@ -10,6 +10,5 @@ export const getPromos = (controller) => {
   const url = baseUrl + "/promos";
   const storeToken = store.getState();
   const token = storeToken.user.token;
-  return axios.get(url, { signal: controller.signal,
-  headers: { Authorization: `Bearer ${token}`}, });
+  return axios.get(url, { signal: controller.signal });
 };
