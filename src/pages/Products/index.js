@@ -183,7 +183,7 @@ export class Products extends Component {
               ""
             ) : (
               <div className="ml-[5%] my-5">
-                <label htmlFor="short">Short By :</label>
+                <label htmlFor="short">Sort By :</label>
                 <select
                   onChange={this.handleShorting}
                   name="short"
