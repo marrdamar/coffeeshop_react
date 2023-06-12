@@ -5,7 +5,7 @@ function Promos(props) {
   return (
     <div className="card-promos">
       <div className="w-32 h-32 rounded-full overflow-hidden">
-        <img src={props.image} alt="" />
+        <img src={props.img} alt="" />
       </div>
       <h2 className="font-bold text-2xl">{props.prodName}</h2>
       <h2 className="font-bold text-xl">{props.discount}</h2>
