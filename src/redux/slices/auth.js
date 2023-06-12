@@ -5,7 +5,7 @@ import { login } from "../../utils/https/auth";
 const initialState = {
   // isLogin: false,
   // id: null,
-  // image: null,
+  image: null,
   // role: null,
   token: null,
   data: null,
@@ -14,7 +14,7 @@ const initialState = {
   isFulfilled: false,
   err: null,
 };
-
+console.log(initialState)
 const loginThunk = createAsyncThunk(
   "user/post",
   async ({ email, password }, controller) => {
@@ -32,6 +32,7 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     authLogin: (prevState, action) => {
+      console.log(action.payload)
       return {
         ...prevState,
         // isLogin: true,
@@ -99,6 +100,7 @@ const userSlice = createSlice({
         isFulfilled: true,
         token: action.payload.token || null,
         data: action.payload.dataUser || null,
+        // image: action.payload.profile_image || null,
         // isLogin: true,
       };
     },
@@ -112,6 +114,5 @@ const userSlice = createSlice({
     },
   },
 });
-
 export const userAction = { ...userSlice.actions, loginThunk };
 export default userSlice.reducer;
