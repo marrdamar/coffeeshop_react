@@ -1,8 +1,12 @@
 import React, { Component, Fragment } from "react";
-
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
-
+import viezh from "../../assets/customer/customer-1.png.webp";
+import yessica from "../../assets/customer/customer-2.png.webp";
+import kim from "../../assets/customer/customer-3.png.webp";
+import hzlnut from "../../assets/product/hazelnut-latte.png.webp";
+import pinkyprom from "../../assets/product/pink-promise.png.webp";
+import chickwings from "../../assets/product/chicken-wings.png.webp";
 import logoSearch from "../../assets/icon/search.svg";
 import imgTeamWork from "../../assets/team-work.webp";
 import imgMaps from "../../assets/maps.svg";
@@ -11,6 +15,7 @@ import imgReddit from "../../assets/partner/reddit.webp";
 import imgAmazon from "../../assets/partner/amazon.webp";
 import imgDiscord from "../../assets/partner/discord.webp";
 import imgSpotify from "../../assets/partner/spotify.webp";
+import { Link } from "react-router-dom";
 
 export class Home extends Component {
   constructor(props) {
@@ -45,12 +50,13 @@ export class Home extends Component {
               We provide high quality beans, good taste, and healthy meals made
               by love just for you. Start your day with us for a bigger smile!
             </p>
-            <a
-              href="#"
+            <Link to="/login">
+            <p
               className="btn w-full md:w-60 h-14 rounded-2xl bg-primary text-secondary mb-28 md:mb-56"
             >
               Get Started
-            </a>
+            </p>
+            </Link>
           </div>
         </section>
 
@@ -138,7 +144,7 @@ export class Home extends Component {
               {/* <!-- CARD-FAV-1 --> */}
               <div className="card-fav w-full md:w-80 md:h-[760px] p-3 md:pt-16 md:pb-12 grid grid-cols-2 gap-3 md:flex md:flex-col md:justify-between items-center border-2 border-grey rounded-xl">
                 <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-full overflow-hidden">
-                  <img src="./img/product/hazelnut-latte.png.webp" alt="" />
+                  <img src={hzlnut} alt="" />
                 </div>
                 <h4 className="font-medium text-lg text-center">
                   Hazelnut Latte
@@ -162,7 +168,7 @@ export class Home extends Component {
               {/* <!-- CARD-FAV-2 --> */}
               <div className="card-fav w-full md:w-80 md:h-[760px] p-3 md:pt-16 md:pb-12 grid grid-cols-2 gap-3 md:flex md:flex-col md:justify-between items-center border-2 border-grey rounded-xl">
                 <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-full overflow-hidden">
-                  <img src="./img/product/pink-promise.png.webp" alt="" />
+                  <img src={pinkyprom} alt="" />
                 </div>
                 <h4 className="font-medium text-lg text-center">
                   Pink Promise
@@ -187,7 +193,7 @@ export class Home extends Component {
               {/* <!-- CARD-FAV-3 --> */}
               <div className="card-fav w-full md:w-80 md:h-[760px] p-3 md:pt-16 md:pb-12 grid grid-cols-2 gap-3 md:flex md:flex-col md:justify-between items-center border-2 border-grey rounded-xl">
                 <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-full overflow-hidden">
-                  <img src="./img/product/chicken-wings.png.webp" alt="" />
+                  <img src={chickwings} alt="" />
                 </div>
                 <h4 className="font-medium text-lg text-center">
                   Chicken Wings
@@ -261,7 +267,7 @@ export class Home extends Component {
               <div className="card-comment flex flex-col p-4 sm:p-7 w-full sm:min-w-[400px] max-h-[230px] border-2 rounded-xl border-grey">
                 <div className="flex w-full gap-3 mb-6">
                   <div className="w-12 h-12 lg:w-14 lg:h-14 rounded-full overflow-hidden">
-                    <img src="./img/customer/customer-1.png.webp" alt="" />
+                    <img src={viezh} alt="" />
                   </div>
                   <div className="">
                     <h4 className="font-medium md:text-lg">Viezh Robert</h4>
@@ -284,7 +290,7 @@ export class Home extends Component {
               <div className="card-comment flex flex-col p-4 sm:p-7 w-full sm:min-w-[400px] max-h-[230px] border-2 rounded-xl border-grey">
                 <div className="flex w-full gap-3 mb-6">
                   <div className="w-12 h-12 lg:w-14 lg:h-14 rounded-full overflow-hidden">
-                    <img src="./img/customer/customer-2.png.webp" alt="" />
+                    <img src={yessica} alt="" />
                   </div>
                   <div className="">
                     <h4 className="font-medium md:text-lg">Yessica Christy</h4>
@@ -306,7 +312,7 @@ export class Home extends Component {
               <div className="card-comment flex flex-col p-4 sm:p-7 w-full sm:min-w-[400px] max-h-[230px] border-2 rounded-xl border-grey">
                 <div className="flex w-full gap-3 mb-6">
                   <div className="w-12 h-12 lg:w-14 lg:h-14 rounded-full overflow-hidden">
-                    <img src="./img/customer/customer-3.png.webp" alt="" />
+                    <img src={kim} alt="" />
                   </div>
                   <div className="">
                     <h4 className="font-medium md:text-lg">Kim Young Jou</h4>
@@ -356,12 +362,13 @@ export class Home extends Component {
                     Lets see the deals and pick yours!
                   </p>
                 </div>
-                <a
-                  href=""
+                <Link to="/products">
+                <p
                   className="btn w-full md:w-64 h-16 flex justify-center items-center rounded-2xl bg-primary shadow-md shadow-primary font-bold text-secondary"
                 >
                   See Promo
-                </a>
+                </p>
+                </Link>
               </div>
             </section>
           </main>
