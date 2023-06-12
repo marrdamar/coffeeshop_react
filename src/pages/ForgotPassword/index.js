@@ -2,10 +2,11 @@ import React, { useEffect, useMemo, useState } from "react";
 import Footer from "../../components/Footer";
 import { forgot, setPassbyForgot } from "../../utils/https/auth";
 import Loader from "../../components/Loader";
+import { useNavigate } from "react-router-dom";
 
 function ForgotPassword() {
   const controller = useMemo(() => new AbortController(), []);
-
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [timeLeft, setTimeLeft] = useState(0);
@@ -59,6 +60,7 @@ function ForgotPassword() {
         setIsLoading(false);
         console.log(res);
         setTimeLeft(0);
+        navigate("/login")
       })
       .catch((err) => console.log(err));
   };
