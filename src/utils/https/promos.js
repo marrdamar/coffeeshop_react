@@ -1,5 +1,4 @@
 import axios from "axios";
-import store from '../../redux/store'
 
 // eslint-disable-next-line no-undef
 const baseUrl = process.env.REACT_APP_SERVER_HOST;
