@@ -47,7 +47,7 @@ function Login() {
     <>
       <section className="w-full flex flex-col md:flex-row">
         {/* <!-- JUMBOTRON --> */}
-        <div className="hero-auth w-full md:w-1/2 absolute md:static h-full md:h-auto -z-50"></div>
+        <div className="hero-auth w-full absolute md:static h-full md:h-auto -z-50"></div>
         {/* <!-- RIGHT CONTENT --> */}
         <div className="z-1 w-full max-w-[720px] flex flex-col pt-3 md:pt-14 md:mr-[10%] bg-white bg-opacity-70">
           <div className="flex px-[5%] md:pl-14">
