@@ -118,7 +118,7 @@ function ProductDetails() {
               <ul className="flex mt-10">
                 <Link to="/products">{dataProduct.names}</Link>
                 <li className="font-bold text-secondary ml-1">
-                  &gt; {dataProduct.prodName}
+                  &gt; {dataProduct.names}
                 </li>
               </ul>
               <div className="flex flex-col md:flex-row w-full mb-60 md:mb-44 md:gap-16 xl:gap-20 justify-center">
@@ -158,11 +158,9 @@ function ProductDetails() {
                       <span className="font-bold">Monday to Friday</span> at{" "}
                       <span className="font-bold">1 - 7 pm</span>
                     </p>
+                    <br></br>
                     <p className="text-secondary md:text-2xl">
-                      Cold brewing is a method of brewing that combines ground
-                      coffee and cool water and uses time instead of heat to
-                      extract the flavor. It is brewed in small batches and
-                      steeted for as long 48 hours.
+                      {dataProduct.desc_product}
                     </p>
                     <h3 className="text-2xl font-bold text-center mt-9 md:mt-16 mb-4 md:mb-10">
                       Choose a size
