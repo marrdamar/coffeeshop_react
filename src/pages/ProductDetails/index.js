@@ -28,7 +28,7 @@ function ProductDetails() {
   const [selectedSize, setSelectedSize] = useState(1);
   const selectedDelivery = useSelector((state) => state.counter.delivery);
   const notes = useSelector((state) => state.counter.notes);
-
+  console.log(qty)
   const fetchData = async (id) => {
     try {
       const result = await getProductsDetails(id, controller);
@@ -83,7 +83,7 @@ function ProductDetails() {
       qty,
       subtotal,
     };
-    console.log(prodName)
+    console.log(subtotal)
     dispatch(counterAction.addtoCart(cart));
     setIsModalCart(true);
   };
@@ -143,7 +143,7 @@ function ProductDetails() {
                     Add to Cart
                   </button>
                   <ModaltoCart
-                    msg={dataProduct.prodName + " Added..."}
+                    msg={dataProduct.names + " Added..."}
                     isOpen={isModalCart}
                     onClose={handleCloseCart}
                   />
