@@ -14,7 +14,11 @@ Coffee Shop is a web-based application for order coffee, non coffee, and foods p
 This application is built using React.js, Redux, axios, TailwindCSS.
 
 
-  [![My Skills](https://skillicons.dev/icons?i=js,nodejs,react,redux,tailwind,css,vercel)](https://skillicons.dev)
+  [![My Skills](https://skillicons.dev/icons?i=react)](https://react.dev/)
+  [![My Skills](https://skillicons.dev/icons?i=redux)](https://redux.js.org/)
+  [![My Skills](https://skillicons.dev/icons?i=tailwind,)](https://tailwindcss.com/)
+  [![My Skills](https://skillicons.dev/icons?i=css)](https://www.w3schools.com/css/css_intro.asp)
+  [![My Skills](https://skillicons.dev/icons?i=vercel)](https://vercel.com)
 
 ## Features
 
@@ -30,15 +34,20 @@ Coffee Shop has several main features:
 ## How to run the application
 
 To run the application, follow these steps:
-
+```
 1. Clone this repository to your computer.
 2. Open a terminal in the repository directory and run the `npm install` command to install all required dependencies.
 3. After it finishes, run the `npm start` command to run the application.
 4. Open a browser and visit `http://localhost:3000` to see the application.
+```
 
 ## Contributions
 
 If you would like to contribute to this project, please send a pull request to this repository. We greatly appreciate your contributions.
+
+## Related Projects
+[CoffeeShop-Backend](https://new-back-end-hazel.vercel.app/)
+[CoffeeShop-ReactNative]()
 
 ## Documentation
 
@@ -52,3 +61,6 @@ If you would like to contribute to this project, please send a pull request to t
   <img width="400" src="https://user-images.githubusercontent.com/123706933/245343608-2a8bc7c2-4ab9-4667-8c7d-bd7c8553e267.png" alt="display-documentation">
   <img width="400" src="https://user-images.githubusercontent.com/123706933/245343665-b2c1af8c-00f3-49eb-a884-ee742e8047bf.png" alt="display-documentation">
 </div>
+
+## Feedback
+If you have question or any feedback, just contact me on email damaranggoro7@gmail.com
