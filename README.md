@@ -16,7 +16,7 @@ This application is built using React.js, Redux, axios, TailwindCSS.
 
   [![My Skills](https://skillicons.dev/icons?i=react)](https://react.dev/)
   [![My Skills](https://skillicons.dev/icons?i=redux)](https://redux.js.org/)
-  [![My Skills](https://skillicons.dev/icons?i=tailwind,)](https://tailwindcss.com/)
+  [![My Skills](https://skillicons.dev/icons?i=tailwind)](https://tailwindcss.com/)
   [![My Skills](https://skillicons.dev/icons?i=css)](https://www.w3schools.com/css/css_intro.asp)
   [![My Skills](https://skillicons.dev/icons?i=vercel)](https://vercel.com)
 
