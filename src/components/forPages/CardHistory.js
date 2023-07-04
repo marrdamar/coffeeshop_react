@@ -4,12 +4,12 @@ import { deleteTransaction } from "../../utils/https/transaction";
 function CardHistory(props) {
   const controller = useMemo(() => new AbortController(), []);
   const [isAction, setIsAction] = useState(false);
-
+  const locale = 'en';
   const handleCard = () => {
     
-    // if (props.status === 1) {
-    //   return props.status(`pending`)
-    // }
+    if (props.status === 1) {
+      return props.status(`pending`)
+    }
     setIsAction(true);
   };
   const handleCancel = (event) => {
@@ -51,13 +51,14 @@ function CardHistory(props) {
         />
       </div>
       <div className="w-2/3">
-        <h2 className="font-bold text-2xl">{props.name}</h2>
+        <h2 className="font-bold text-2xl">{props.name} {props.size}</h2>
         
         <p className="text-secondary">
-          {props.status}
+          {props.status === 1 ? "Pending" : props.status === 2 ? "Paid" : "Canceled"}
         </p>
         <p className="text-secondary">
-          {props.price.toLocaleString("id-ID")}
+          {props.subtotal.toLocaleString("id-ID")}
+          {/* {props.prodId === props.prodId ? Math.floor((props.price - (props.price * 40 / 100)) * props.size ): Math.floor(props.price * props.size)} */}
           {/* <span className="ml-4">
             ( x{props.qty}{" "}
             {props.size === 1
@@ -69,7 +70,7 @@ function CardHistory(props) {
           </span> */}
         </p>
         <p className="text-secondary">
-          {props.methodDeliv} at {new Date(props.orderAt).toLocaleDateString()}
+          {props.methodDeliv} <br></br>at {new Date(props.orderAt).toLocaleDateString(locale, { hour: 'numeric', hour12: true, minute: 'numeric' })}
         </p>
       </div>
       {isAction && (

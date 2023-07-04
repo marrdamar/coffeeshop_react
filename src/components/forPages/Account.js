@@ -32,11 +32,11 @@ export class Account extends Component {
   componentDidMount() {
     const state = store.getState();
     const profilePicture = state.user.data.profile_image;
-    console.log(profilePicture)
+    // console.log(profilePicture)
     this.setState({
       imageProfile: profilePicture,
     });
-    console.log(state)
+    // console.log(state)
   }
   
   render() {

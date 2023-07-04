@@ -1,7 +1,7 @@
 import React from "react";
 
 function OrderProduct(props) {
-  console.log(props);
+  // console.log(props);
   return (
     <div className="flex mb-5 gap-3 items-center">
       <span className="w-20 h-24 rounded-3xl border overflow-hidden">
@@ -22,7 +22,7 @@ function OrderProduct(props) {
             : "Extra Large"}
         </p>
       </div>
-      {/* <h4>IDR {props.subtotal.toLocaleString("id-ID")}</h4> */}
+      <h4>IDR {props.subtotal}</h4>
     </div>
   );
 }
