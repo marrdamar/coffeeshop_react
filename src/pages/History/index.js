@@ -28,6 +28,7 @@ function History() {
   };
   useEffect(() => {
     document.title = "Coffee Shop - History";
+    window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
     fetchDataHistory();
   }, [isDelete]);
   // console.log(isDelete);
@@ -58,6 +59,10 @@ function History() {
                   methodDeliv={product.method}
                   orderAt={product.created_at}
                   status={product.status_id}
+                  size={product.sizes_id}
+                  qty={product.qty}
+                  disc={product.discount}
+                  subtotal={product.subtotal}
                   onDelete={handleDelete}
                   // qty={product.qty}
                   // size={product.size_id}

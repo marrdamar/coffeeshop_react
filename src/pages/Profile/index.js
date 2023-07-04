@@ -5,29 +5,31 @@ import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import Loader from "../../components/Loader";
 // import imgUserDefault from "../../assets/user-default.png";
-import { authLogout, getUser, updateDataUser } from "../../utils/https/auth";
+import { getUser, updateDataUser } from "../../utils/https/auth";
 import { userAction } from "../../redux/slices/auth";
-import { counterAction } from "../../redux/slices/counter";
-import { useNavigate } from "react-router-dom";
+// import { counterAction } from "../../redux/slices/counter";
+// import { useNavigate } from "react-router-dom";
 // import ChangePwd from "../../components/forPages/ChangePwd";
+// import { Modal, Button } from 'react-bootstrap';
+import LogoutModal from "../../components/forPages/Logout";
 
 function Profile() {
   const controller = useMemo(() => new AbortController());
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const state = useSelector((state) => state.user);
-  const token = useSelector((state) => state.user.token);
+  // const token = useSelector((state) => state.user.token);
   // const id = useSelector((state) => state.user.id)
 
   const [dataUser, setDataUser] = useState();
   const [isLoading, setIsLoading] = useState(true);
-  // const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [form, setForm] = useState();
   const [profPict, setProfPict] = useState("");
-
-  const fetchDataUser = async (id) => {
+console.log(dataUser)
+  const fetchDataUser = async () => {
     try {
-      const result = await getUser(id, controller);
+      const result = await getUser(controller);
       setDataUser(result.data.data);
       setIsLoading(false);
       // console.log(result.data.email)
@@ -37,7 +39,7 @@ function Profile() {
     }
   };
   // console.log(state)
-  console.log(token)
+  // console.log(token)
   const handleForm = (event) => {
     if (event.target.name === "profile_image") {
       console.log(event.target.files);
@@ -81,32 +83,34 @@ function Profile() {
   };
   
 
-  const handleLogout = async () => {
-    setIsLoading(true);
-    try {
-      const result = await authLogout(controller);
-      if (result.status === 200) {
-        console.log(result);
-        dispatch(userAction.authLogout());
-        dispatch(counterAction.resetCounter());
-        setIsLoading(false);
-        navigate("/", { replace: true });
-        localStorage.clear();
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const handleLogout = async () => {
+  //   setIsLoading(true);
+  //   try {
+  //     const result = await authLogout(controller);
+  //     if (result.status === 200) {
+  //       console.log(result);
+  //       dispatch(userAction.authLogout());
+  //       dispatch(counterAction.resetCounter());
+  //       setIsLoading(false);
+  //       setIsModalOpen(true)
+  //       navigate("/", { replace: true });
+  //       localStorage.clear();
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
-  // const handleEditPwd = () => {
-  //   setIsModalOpen(true);
-  // };
-  // const handleCloseModal = () => {
-  //   setIsModalOpen(false);
-  // };
+  const handleModalLogout = () => {
+    setIsModalOpen(true);
+  };
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
 
   useEffect(() => {
     document.title = "Coffee Shop - Profile";
+    window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
     fetchDataUser(state.data.id);
   }, []);
 
@@ -117,7 +121,7 @@ function Profile() {
 
   // console.log(new Date(dataUser.birth_date).toISOString());
   // console.log(fetchDataUser(state.data.id))
-  // console.log(dataUser)
+  console.log(dataUser)
   return (
     <>
       <Header />
@@ -153,7 +157,7 @@ function Profile() {
                           : URL.createObjectURL(profPict)
                       }
                       alt="image"
-                      className="w-full h-full rounded-full border-2 overflow-hidden"
+                      className="w-full h-full text-center rounded-full border-2 overflow-hidden"
                     />
                   </span>
                   <h2 className="font-bold text-xl">{dataUser.display_name}</h2>
@@ -378,14 +382,42 @@ function Profile() {
                     </button>
                   </div>
                   <div className="flex flex-col gap-5">
-                    <button
+                  <button
                       type="button"
-                      onClick={handleLogout}
+                      onClick={handleModalLogout}
                       className="btn h-14 rounded-2xl text-secondary bg-white flex justify-between px-10"
                     >
                       Log out
                       <i className="bi bi-caret-right-fill text-secondary"></i>
                     </button>
+                    <LogoutModal
+                    isOpen = {isModalOpen}
+                    onClose = {handleCloseModal}
+                    />
+                    {/* <button
+                      type="button"
+                      onClick={setIsModalOpen(true)}
+                      className="btn h-14 rounded-2xl text-secondary bg-white flex justify-between px-10"
+                    >
+                      Log out
+                      <i className="bi bi-caret-right-fill text-secondary"></i>
+                    </button>
+                    <Modal
+                    show={isModalOpen}
+                    onHide={handleCloseModal}
+                    dialogClassName="my-modal"
+                    >
+                      <Modal.Header closeButton>
+                        <Modal.Title>Logout</Modal.Title>
+                      </Modal.Header>
+                      <Modal.Body>
+                        Are you sure want to logout?
+                      </Modal.Body>
+                      <Modal.Footer>
+                        <Button onClick={handleLogout}>Logout</Button>
+                        <Button onClick={handleCloseModal}>Cancel</Button>
+                      </Modal.Footer>
+                    </Modal> */}
                   </div>
                 </div>
               </div>

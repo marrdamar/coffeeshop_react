@@ -5,11 +5,12 @@ import { useDispatch, useSelector } from "react-redux";
 import Loader from "../../components/Loader";
 import OrderProduct from "../../components/forPages/OrderProduct";
 import NothingCart from "../../components/forPages/NothingCart";
-
+import { getPromos } from "../../utils/https/promos";
 import { counterAction } from "../../redux/slices/counter";
 import ModalMsg from "../../components/ModalMgs";
 import { addTransactions } from "../../utils/https/transaction";
 import ModaltoCart from "../../components/ModalMgs/ModaltoCart";
+import { activePromoAction } from "../../redux/slices/activePromo";
 
 function YourCart() {
   const controller = useMemo(() => new AbortController(), []);
@@ -17,18 +18,20 @@ function YourCart() {
   const state = useSelector((state) => state);
   const cartState = state.counter;
   const userState = state.user.data;
-
+  // const promoDiscount = state.activePromo;
   const [isLoading, setIsLoading] = useState(userState === null ? true : false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isConfirmed, setIsConfirmed] = useState(false);
   const [msg, setMsg] = useState("");
   const [payMethod, setPayMethod] = useState(0);
+  const [dataPromo, setDataPromo] = useState([]);  
+  console.log(cartState)
 
   const changePayment = (event) => {
     console.log(event.target.value);
     setPayMethod(event.target.value);
   };
-
+  console.log(dataPromo)
   const submitHandler = async () => {
     if (cartState.shoppingCart.length < 1) {
       setMsg("Nothing Products on Your Cart");
@@ -48,18 +51,19 @@ function YourCart() {
     });
 
     const data = {
-      promo_id: 1,
-      delivery_id: cartState.delivery,
+      promo_id: 2,
+      deliveries_id: cartState.deliveries_id,
       payment_id: payMethod,
       notes: cartState.notes,
-      pay_status_id: 1,
       products: dataShoppingCart,
+      sizes_id: cartState.size
     };
     console.log(data);
     setIsLoading(true);
     try {
       const result = await addTransactions(data, controller);
       console.log(result);
+      console.log(data)
       setIsLoading(false);
       setIsConfirmed(true);
     } catch (error) {
@@ -69,12 +73,28 @@ function YourCart() {
     dispatch(counterAction.resetCounter());
   };
 
+  const promoProduct = async () => {
+    try {
+      const result = await getPromos(controller);
+      // console.log(result);
+      if (result.status === 200) {
+        setIsLoading(false);
+        setDataPromo(result.data.data);
+      }
+      dispatch(activePromoAction.submitPromo());
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
 
   useEffect(() => {
+    promoProduct();
     document.title = "Coffee Shop - Your Cart";
+    window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
   }, []);
 
   const onCart = cartState.shoppingCart;
@@ -82,15 +102,15 @@ function YourCart() {
   cartState.shoppingCart.forEach((prod) => {
     subtotalOnCart += prod.subtotal;
   });
-  const taxFee = subtotalOnCart * 0.05;
-  let shipping = cartState.delivery == 2 ? 10000 : 0;
+  const taxFee = subtotalOnCart * 11 / 100;
+  let shipping = cartState.deliveries_id == 2 ? 10000 : 0;
   // if (cartState.delivery == 2) shipping = 10000;
   const grandTotal = subtotalOnCart + taxFee + shipping;
   // console.log(cartState);
   // console.log(subtotalOnCart);
   // console.log(taxFee);
-
-  console.log(payMethod);
+  console.log(onCart)
+  console.log(grandTotal);
   return (
     <>
       <Header title="yourcart" />
@@ -117,7 +137,7 @@ function YourCart() {
                       key={product.id}
                       img={product.img}
                       prodName={product.prodName}
-                      size={product.size_id}
+                      size={product.size}
                       qty={product.qty}
                       subtotal={product.subtotal}
                     />

@@ -34,6 +34,7 @@ function ForgotPassword() {
 
   useEffect(() => {
     document.title = "Coffee Shop - Forgot Password";
+    window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
     const interval = setInterval(() => {
       setTimeLeft((prevTime) => prevTime - 1);
     }, 1000);
@@ -68,7 +69,7 @@ function ForgotPassword() {
   return (
     <>
       <section className="hero-forgot w-full min-h-screen flex flex-col justify-center items-center">
-        <h1 className="text-white text-2xl md:text-6xl font-bold">
+        <h1 className="text-white text-2xl md:text-6xl font-bold py-[2vw]">
           Forgot your password?
         </h1>
         <p className="text-white text-sm md:text-base font-bold">
@@ -76,7 +77,7 @@ function ForgotPassword() {
         </p>
         <form className="w-full px-[5%] md:px-0 md:w-4/5 max-width flex flex-col items-center">
           {timeLeft === 0 ? (
-            <div className="w-full flex flex-col md:flex-row gap-9 my-8 md:my-28">
+            <div className="w-full flex flex-col md:flex-row gap-9 my-8 py-[5vw]">
               <input
                 type="text"
                 id="email"
@@ -84,7 +85,7 @@ function ForgotPassword() {
                 value={email}
                 onChange={onChange}
                 placeholder="Enter your email address to get link"
-                className="input-auth w-full md:h-32 text-base md:text-2xl"
+                className="input-auth w-full md:h-15 text-base md:text-2xl"
               />
               <button
                 type="submit"
@@ -103,7 +104,7 @@ function ForgotPassword() {
           <button
             type="button"
             onClick={emailSubmitHandler}
-            className="btn text-white bg-secondary h-14 md:h-32 w-full md:w-[554px] md:text-2xl rounded-2xl my-8"
+            className="btn text-white bg-secondary h-14 md:h-15 w-full md:w-[554px] md:text-2xl rounded-2xl my-8"
           >
             Resend Link
           </button>

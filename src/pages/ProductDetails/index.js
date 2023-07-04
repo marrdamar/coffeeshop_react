@@ -11,6 +11,7 @@ import { getProductsDetails } from "../../utils/https/products";
 import { counterAction } from "../../redux/slices/counter";
 import ModalMsg from "../../components/ModalMgs";
 import ModaltoCart from "../../components/ModalMgs/ModaltoCart";
+// import { getPromos } from "../../utils/https/promos";
 
 function ProductDetails() {
   const controller = React.useMemo(() => new AbortController(), []);
@@ -24,15 +25,20 @@ function ProductDetails() {
 
   const { id } = useParams();
   const [dataProduct, setDataProduct] = useState();
+  const [dataPromo, setDataPromo] = useState([]);
   const [qty, setQty] = useState(1);
-  const [selectedSize, setSelectedSize] = useState(1);
-  const selectedDelivery = useSelector((state) => state.counter.delivery);
+  const selectedSize = useSelector((state) => state.counter.sizes_id);
+  const selectedDelivery = useSelector((state) => state.counter.deliveries_id);
   const notes = useSelector((state) => state.counter.notes);
-  console.log(qty)
+  // const promoProduct = useSelector((state) => state.activePromo);
+  // const promoDiscount = useSelector((state) => state.activePromo.discount);
+  // console.log(dataPromo.discount)
   const fetchData = async (id) => {
     try {
       const result = await getProductsDetails(id, controller);
+      // const resultPromo = await getPromos(id, controller);
       setDataProduct(result.data.data[0]);
+      setDataPromo(result.data.data[0]);
       setIsLoading(false);
       setIsNotFound(false);
       console.log(result)
@@ -46,11 +52,14 @@ function ProductDetails() {
   };
   useEffect(() => {
     document.title = "Coffee Shop - Product Details";
+    window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
     fetchData(id);
   }, [id]);
 
   const changeSize = (event) => {
-    setSelectedSize(event.target.value);
+    // setSelectedSize(event.target.value);
+    
+    dispatch(counterAction.sizes(event.target.value));
     console.log(event.target.value);
   };
   const noteHandler = (event) => {
@@ -60,6 +69,7 @@ function ProductDetails() {
     // setSelectedDelivery(event.target.value);
     // console.log(selectedDelivery);
     dispatch(counterAction.deliveryMethod(event.target.value));
+    console.log(event.target.value)
   };
   const plusQty = () => {
     const newQty = qty + 1;
@@ -70,22 +80,33 @@ function ProductDetails() {
     const newQty = qty - 1;
     setQty(newQty);
   };
+  console.log(dataProduct)
 
   const addtoCartHandler = () => {
-    const subtotal = dataProduct.prices * qty;
+    const priceqty = dataProduct.prices * qty;
     const img = dataProduct.image;
     const prodName = dataProduct.names;
+    const disc = dataPromo.discount;
+    const product_id = dataProduct.id;
+    const promo_id = dataPromo.id;
+    // const discountPromo = promoProduct.discount;
+    let sizeValue = parseInt(selectedSize) === 1 ? 1 : (parseInt(selectedSize) === 2 ? 1.25 : 1.5);
+    let subtotal = product_id === promo_id ? Math.floor((dataProduct.prices - (dataProduct.prices * disc / 100)) * sizeValue ): Math.floor(dataProduct.prices * sizeValue);
+    console.log(subtotal)
     const cart = {
       product_id: parseInt(id),
+      promo_id : parseInt(id),
       img,
       prodName,
-      size_id: parseInt(selectedSize),
+      size: parseInt(selectedSize),
       qty,
+      priceqty,
+      discount : disc,
       subtotal,
     };
-    console.log(subtotal)
     dispatch(counterAction.addtoCart(cart));
     setIsModalCart(true);
+    console.log(cart)
   };
 
   const checkoutHandler = () => {
@@ -101,7 +122,7 @@ function ProductDetails() {
     setIsModalOpen(false);
   };
   // console.log(selectedSize);
-  console.log(dataProduct);
+  // console.log(dataProduct);
   return (
     <>
       <Header title="products" />
@@ -169,7 +190,7 @@ function ProductDetails() {
                       <label htmlFor="r" className="choose-size btn">
                         <input
                           type="radio"
-                          name="size"
+                          name="sizes_id"
                           id="r"
                           value={1}
                           onChange={changeSize}
@@ -179,7 +200,7 @@ function ProductDetails() {
                       <label htmlFor="l" className="choose-size btn">
                         <input
                           type="radio"
-                          name="size"
+                          name="sizes_id"
                           id="l"
                           value={2}
                           onChange={changeSize}
@@ -189,7 +210,7 @@ function ProductDetails() {
                       <label htmlFor="xl" className="choose-size btn">
                         <input
                           type="radio"
-                          name="size"
+                          name="sizes_id"
                           id="xl"
                           value={3}
                           onChange={changeSize}

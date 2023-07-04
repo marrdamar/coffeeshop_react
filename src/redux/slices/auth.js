@@ -3,10 +3,10 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { login } from "../../utils/https/auth";
 
 const initialState = {
-  // isLogin: false,
+  isLogin: false,
   // id: null,
   image: null,
-  // role: null,
+  role: null,
   token: null,
   data: null,
   isLoading: false,
@@ -14,7 +14,7 @@ const initialState = {
   isFulfilled: false,
   err: null,
 };
-console.log(initialState)
+// console.log(initialState)
 const loginThunk = createAsyncThunk(
   "user/post",
   async ({ email, password }, controller) => {
@@ -32,13 +32,13 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     authLogin: (prevState, action) => {
-      console.log(action.payload)
+      console.log(action.payload.data)
       return {
         ...prevState,
-        // isLogin: true,
+        isLogin: true,
         id: action.payload.dataUser.id,
         image: action.payload.dataUser.profile_image,
-        role: action.payload.dataUser.role_id,
+        role: action.payload.dataUser.roles_id,
         token: action.payload.token,
       };
     },
@@ -100,6 +100,9 @@ const userSlice = createSlice({
         isFulfilled: true,
         token: action.payload.token || null,
         data: action.payload.dataUser || null,
+        role: action.payload.dataUser.roles_id,
+        id: action.payload.dataUser.id,
+        image: action.payload.dataUser.profile_image,
         // image: action.payload.profile_image || null,
         // isLogin: true,
       };

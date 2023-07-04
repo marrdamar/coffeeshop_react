@@ -13,7 +13,7 @@ export class CardProducts extends Component {
   }
   
   render() {
-    console.log(this.props)
+    // console.log(this.props)
     return (
       <div
         onClick={() => this.handleNavigate(`/products/${this.props.id}`)}

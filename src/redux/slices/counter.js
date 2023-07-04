@@ -1,8 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  delivery: "",
+  deliveries_id: "",
   notes: "",
+  // sizes_id:"",
   shoppingCart: [],
   // number: 0,
 };
@@ -24,18 +25,21 @@ const counterSlice = createSlice({
     //   };
     // },
     deliveryMethod: (prevState, action) => {
-      return { ...prevState, delivery: action.payload };
+      return { ...prevState, deliveries_id: action.payload };
+    },
+    sizes: (prevState, action) => {
+      return { ...prevState, sizes_id: action.payload };
     },
     notes: (prevState, action) => {
       return { ...prevState, notes: action.payload };
     },
     addtoCart: (prevState, action) => {
-      // console.log(action.payload);
+      console.log(action.payload);
 
       const exsistIdx = prevState.shoppingCart.findIndex(
         (item) =>
           item.product_id === action.payload.product_id &&
-          item.size_id === action.payload.size_id
+          item.sizes_id === action.payload.sizes_id
       );
 
       if (exsistIdx !== -1) {
@@ -46,6 +50,7 @@ const counterSlice = createSlice({
           ...existItem,
           qty: existItem.qty + action.payload.qty,
           subtotal: existItem.subtotal + action.payload.subtotal,
+          sizes_id: existItem.sizes_id + action.payload.sizes_id,
         };
         const updatedCart = [
           ...prevState.shoppingCart.slice(0, exsistIdx),

@@ -24,6 +24,7 @@ export class Home extends Component {
   }
   componentDidMount() {
     document.title = "Coffee Shop - Home";
+    window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
   }
   render() {
     return (

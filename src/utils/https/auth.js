@@ -29,8 +29,8 @@ export const setPassbyForgot = (email, otpCode, password, controller) => {
   return axios.patch(url, body, { signal: controller.signal });
 };
 
-export const getUser = (id, controller) => {
-  const url = `${baseUrl}/users/${id}`;
+export const getUser = (controller) => {
+  const url = `${baseUrl}/users`;
   const storeToken = store.getState();
   const token = storeToken.user.token
   return axios.get(url, {

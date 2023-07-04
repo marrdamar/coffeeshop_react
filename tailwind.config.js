@@ -11,6 +11,7 @@ module.exports = {
         secondaryhover: "#895537",
         grey: "#9F9F9F",
         greydark: "#4F5665",
+        green: "#48BB78",
       },
       fontFamily: {
         rubik: ["Rubik", "sans-serif"],

@@ -12,6 +12,9 @@ import { getProducts } from "../../utils/https/products";
 import Loader from "../../components/Loader";
 import DataNotFound from "../../components/DataNotFound";
 import PromosSection from "../../components/products/PromosSection";
+import AddCoupon from "../../components/forPages/AddCoupon";
+import AddProduct from "../../components/forPages/AddProduct";
+import { connect } from "react-redux";
 
 export class Products extends Component {
   constructor(props) {
@@ -23,10 +26,22 @@ export class Products extends Component {
       isNotFound: true,
       data: [],
       meta: "",
+      isModalOpen: false,
+      dataUser: [],
     };
     this.controller = new AbortController();
     this.handleToggleMenu = this.handleToggleMenu.bind(this);
+    this.handleAddPromo = this.handleAddPromo.bind(this);
+    this.handleCloseModal = this.handleCloseModal.bind(this);
   }
+
+  handleAddPromo() {
+    this.setState({ isModalOpen: true });
+  }
+  handleCloseModal() {
+    this.setState({ isModalOpen: false });
+  }
+
 
   handleToggleMenu() {
     this.setState({ toggleCategoryActive: !this.state.toggleCategoryActive });
@@ -70,6 +85,7 @@ export class Products extends Component {
 
   componentDidMount() {
     document.title = "Coffee Shop - Products";
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
     this.fetchData();
   }
 
@@ -114,8 +130,9 @@ export class Products extends Component {
   render() {
     // console.log(this.state.srcPar);
     // console.log(this.state.meta.next);
-    console.log(this.state.data)
+    // console.log(this.state.data)
     const shorter = Object.fromEntries(this.props.searchParams);
+    // const { isModalOpen } = this.state;
 
     return (
       <Fragment>
@@ -192,10 +209,9 @@ export class Products extends Component {
                 >
                   <option
                     value="default"
-                    disabled
-                    selected={!shorter.order && true}
+                    selected={shorter.order === "default" && true}
                   >
-                    - - - - -
+                    Default
                   </option>
                   <option
                     value="cheapest"
@@ -214,13 +230,12 @@ export class Products extends Component {
             )}
 
             <div
-              className={`w-full ${
-                this.state.isLoading
-                  ? "flex"
-                  : this.state.isNotFound
+              className={`w-full ${this.state.isLoading
+                ? "flex"
+                : this.state.isNotFound
                   ? "flex"
                   : "grid"
-              } grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-items-center gap-y-[90px] pt-20 px-[5%] sm:px-[10%] md:px-0`}
+                } grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-items-center gap-y-[90px] pt-20 px-[5%] sm:px-[10%] md:px-0`}
             >
               {/* <div className="w-full flex flex-wrap gap-[90px] pt-20 ml-[5%] sm:ml-[10%] md:px-0"> */}
               {this.state.isLoading ? (
@@ -248,17 +263,15 @@ export class Products extends Component {
               <div className="mx-[30%] mt-10 text-xl font-bold flex gap-10">
                 <button
                   onClick={() => this.handlePage(this.state.meta.prev)}
-                  className={`text-base w-16 hover:text-primary text-white btn p-2 rounded-lg bg-secondary ${
-                    this.state.meta.prev === null && "hidden"
-                  }`}
+                  className={`text-base w-16 hover:text-primary text-white btn p-2 rounded-lg bg-secondary ${this.state.meta.prev === null && "hidden"
+                    }`}
                 >
                   Prev
                 </button>
                 <button
                   onClick={() => this.handlePage(this.state.meta.next)}
-                  className={`text-base w-16 hover:text-primary text-white btn p-2 rounded-lg bg-secondary ml-auto ${
-                    this.state.meta.next === null && "hidden"
-                  }`}
+                  className={`text-base w-16 hover:text-primary text-white btn p-2 rounded-lg bg-secondary ml-auto ${this.state.meta.next === null && "hidden"
+                    }`}
                 >
                   Next
                 </button>
@@ -269,6 +282,9 @@ export class Products extends Component {
           {/* <!-- PROMO SIDE --> */}
           <div className="md:w-[35%] md:min-w-[400px] border-t md:border-t-0 md:border-r border-grey flex flex-col items-center">
             <PromosSection />
+            {this.props.user.role === 1 ? <AddCoupon /> : null}
+            {this.props.user.role === 1 ?
+              <AddProduct /> : null}
           </div>
         </main>
 
@@ -278,4 +294,12 @@ export class Products extends Component {
   }
 }
 
-export default withNavigate(withSearchParams(Products));
+
+
+const navigate = withNavigate(withSearchParams(Products));
+
+const mapStateToProps = state => ({
+  user: state.user,
+});
+
+export default connect(mapStateToProps,)(navigate);

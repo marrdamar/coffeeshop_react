@@ -1,14 +1,14 @@
 import React from "react";
 
 function Promos(props) {
-  console.log(props)
+  // console.log(props)
   return (
     <div className="card-promos">
       <div className="w-32 h-32 rounded-full overflow-hidden">
         <img src={props.img} alt="" />
       </div>
       <h2 className="font-bold text-2xl text-center">{props.prodName}</h2>
-      <h2 className="font-bold text-xl">{props.discount}</h2>
+      <h2 className="font-bold text-xl">{props.discount}%</h2>
       <p className="text-sm text-center">
         {props.desc || "Buy 1 Choco Oreo and get 20% off for Beef Spaghetti"}
       </p>
